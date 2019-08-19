@@ -1,23 +1,46 @@
 package com.example.collesure
 
+import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
+
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val imageView: ImageView = findViewById(R.id.imageView)
-        val imageView2: ImageView = findViewById(R.id.imageView2)
+        val textView = findViewById<TextView>(R.id.textView)
+        MyAsyncTask().execute()
+        val imageView = findViewById<ImageView>(R.id.imageView)
         Glide.with(this)
-            .load("https://stat.ameba.jp/user_images/20190205/11/puku164/cc/c1/j/o0250035514350866222.jpg?caw=800")
+            .load("https://s3-ap-northeast-1.amazonaws.com/cdn.bibi-star.jp/production/imgs/images/000/319/906/lqip.jpg?1559004209")
             .into(imageView)
-        Glide.with(this)
-            .load("https://gamewith.akamaized.net/img/ccf2972de1ae2ae39cf402b38db18570.jpg")
-            .into(imageView2)
+
+    }
+
+    inner class MyAsyncTask : AsyncTask<Void, Void, String>() {
+
+        override fun doInBackground(vararg p0: Void?): String? {
+            return getHtml()
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            textView.text = result
+        }
+
+    }
+
+    fun getHtml(): String {
+        val client = OkHttpClient()
+        val req = Request.Builder().url("http://google.com").get().build()
+        val resp = client.newCall(req).execute()
+        return resp.body!!.string()
     }
 }

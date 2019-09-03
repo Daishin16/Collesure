@@ -15,11 +15,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val textView = findViewById<TextView>(R.id.textView)
         MyAsyncTask().execute()
         val imageView = findViewById<ImageView>(R.id.imageView)
+        val url = "https://s3-ap-northeast-1.amazonaws.com/cdn.bibi-star.jp/production/imgs/images/000/319/906/lqip.jpg?1559004209"
         Glide.with(this)
-            .load("https://s3-ap-northeast-1.amazonaws.com/cdn.bibi-star.jp/production/imgs/images/000/319/906/lqip.jpg?1559004209")
+            .load(url)
             .into(imageView)
 
     }
@@ -32,14 +32,14 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-            textView.text = result
+
         }
 
     }
 
     fun getHtml(): String {
         val client = OkHttpClient()
-        val req = Request.Builder().url("http://google.com").get().build()
+        val req = Request.Builder().url("http://www.google.com/search?q=%E7%8C%AB&source=lnms&tbm=isch").get().build()
         val resp = client.newCall(req).execute()
         return resp.body!!.string()
     }

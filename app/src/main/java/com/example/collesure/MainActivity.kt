@@ -11,13 +11,12 @@ import okhttp3.Request
 
 
 class MainActivity : AppCompatActivity() {
-    val urlManager = UrlManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         MyAsyncTask().execute()
         Glide.with(this)
-            .load(urlManager.getUrl())
+            .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg101PJI38ezS5sWsa0uNgZ-cJ0QN3th2bxUulZ4VNQ_AXAbgS")
             .into(imageView)
     }
 
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
-            urlManager.getRequest(result)
 
         }
 

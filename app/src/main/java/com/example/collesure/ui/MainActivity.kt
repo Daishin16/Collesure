@@ -1,7 +1,8 @@
-package com.example.collesure
+package com.example.collesure.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.collesure.R
 
 
 class MainActivity : AppCompatActivity() {
